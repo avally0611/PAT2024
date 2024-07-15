@@ -9,7 +9,6 @@
 body{
     display: flex;
     justify-content: center;
-<<<<<<< HEAD
     /* makes them line up above each like columns */
     flex-direction: column;
     height: 100vh;
@@ -25,12 +24,6 @@ form{
     padding: 0 50px;
     height: 100%;
     text-align: center;
-=======
-    align-items: center;
-    min-height: 100vh;
-    background-color: #bcd2ee;
-    transition: 0.5s;
->>>>>>> 00156083bfaa0a1241b9acc60f0a99535e7f200f
 }
 
 .container{

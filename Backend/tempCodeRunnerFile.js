@@ -1,1 +1,1 @@
-onsole.log(result.Name);
+ole.log(req.body);

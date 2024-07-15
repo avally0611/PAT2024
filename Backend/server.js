@@ -4,7 +4,7 @@ const app = express();
 const port = 8383;
 
 app.use(cors());
-
+app.use(express.json());
 //MySQL connection
 const mysql = require('mysql2');
 
@@ -48,8 +48,12 @@ app.listen(port, function () {
 
 app.post("/api/verifyLogin", function (req, res) 
 {
+    console.log(req.body.username);
+  
     const username = req.body.username;
     const password = req.body.password;
+
+    console.log(username, password);
 
     connection.query(`SELECT password FROM pat_2024.donors WHERE username = '${username}'`, function(err, result) 
     {
@@ -62,17 +66,18 @@ app.post("/api/verifyLogin", function (req, res)
 
       if (result.length == 0)
       {
-        res.json({message: false});
+        res.send('false');
       }
       else
       {
         if (result[0].password == password)
         {
-          res.json({message: true});
+          res.send('true');
+          console.log('true');
         }
         else
         {
-          res.json({message: false});
+          res.send('false');
         }
       }
     });
