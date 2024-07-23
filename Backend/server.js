@@ -25,13 +25,8 @@ connection.connect((error) => {
   }
 });
 
-app.get("/api/passwords", function (req, res) {
-  connection.query('SELECT password FROM pat_2024.donors', function(err, result, fields) {
-    if (err) throw err;
-    res.json({message: result});
-  });
-});
-//JSON get request for hello world with cors
+
+//JSON get request for hello world - basically testing server works
 app.get("/api/hello", function (req, res) {
 
   res.json({message: "result"});
@@ -44,12 +39,10 @@ app.listen(port, function () {
 });
 
 
-//so we will have to use a post request to send the username and password to the server to verify them and then send a boolean back from the server
-
+//method header to verify logins
 app.post("/api/verifyLogin", function (req, res) 
 {
-    console.log(req.body.username);
-  
+    console.log(req.body);
     const username = req.body.username;
     const password = req.body.password;
 
@@ -80,6 +73,38 @@ app.post("/api/verifyLogin", function (req, res)
           res.send('false');
         }
       }
+    });
+
+} );
+
+app.post("/api/addUser", function (req, res) 
+{
+    const username = req.body.username;
+    const password = req.body.password;
+    const fname = req.body.fname;
+    const lname = req.body.lname;
+    const email = req.body.email;
+    const pnum = req.body.pnum;
+
+    console.log(username, password, fname, lname, email, pnum);
+
+    //perform a insert query
+    connection.query(`INSERT INTO pat_2024.donors (first_name, last_name, email, phone_number, username, password) VALUES ("'${fname}'", "'${lname}'", "'${email}'", "'${pnum}'", "'${username}'", "'${password}'");`, function(err, result) 
+    {
+      if (err) 
+      {
+        console.error('Error executing query:', err);
+        res.status(500).send('Internal server error');
+        return;
+      }
+      else
+      {
+        console.log('true');
+        res.send('true');
+      }
+
+
+
     });
 
 } );

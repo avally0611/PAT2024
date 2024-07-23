@@ -1,13 +1,19 @@
-//get input, get list of passwords, check if input is in list of passwords and print to console
-const button = document.getElementById('loginButt');
+const loginButt = document.getElementById('loginButt');
 
-button.addEventListener('click', verifyData);
+loginButt.addEventListener('click', verifyData);
 
+const signupButt = document.getElementById('signupButt');
+
+signupButt.addEventListener('click', register);
+
+
+//remember fetch method cannot be done in addEventListener
 function verifyData() {
     console.log('Button clicked');
-    var username = document.getElementById('email').value;
+    var username = document.getElementById('username').value;
     var password = document.getElementById('pass').value;
     console.log(JSON.stringify({ username, password }));
+
 
     fetch("http://localhost:8383/api/verifyLogin", 
     {
@@ -20,7 +26,10 @@ function verifyData() {
         "Content-type": "application/json; charset=UTF-8"
     }
 
-    }).then(response => response.text()).then(data => 
+    })
+    
+    //basically checks if theres a response, if there is convert to text and then check what text says
+    .then(response => response.text()).then(data => 
     {
         console.log(data);
         if (data == 'true')
@@ -35,7 +44,17 @@ function verifyData() {
 
   
 });
-    
+  
     
 }
+
+function register(){
+
+    //load signup html page
+    window.location.href = "signup.html";
+    
+
+
+}
+
 
