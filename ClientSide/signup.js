@@ -1,6 +1,12 @@
+//ADD A POP UP FOR SUCCESSFUL SIGNUP
+
 const signupButton = document.getElementById("signupButt");
 
 signupButton.addEventListener('click', addUser);
+
+const loginButt = document.getElementById("loginButt");
+
+loginButt.addEventListener('click', signin)
 
 function addUser(){
     console.log('Button clicked');
@@ -43,7 +49,13 @@ function addUser(){
   
 });
   
+}
 
+function signin(){
+
+    //load signup html page
+    window.location.href = "login.html";
+    
 
 
 }

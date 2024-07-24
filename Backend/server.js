@@ -77,6 +77,7 @@ app.post("/api/verifyLogin", function (req, res)
 
 } );
 
+//add user - used in signup screen
 app.post("/api/addUser", function (req, res) 
 {
     const username = req.body.username;
@@ -97,11 +98,10 @@ app.post("/api/addUser", function (req, res)
         res.status(500).send('Internal server error');
         return;
       }
-      else
-      {
-        console.log('true');
-        res.send('true');
-      }
+      
+      console.log('true');
+      res.send('true');
+      
 
 
 
