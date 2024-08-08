@@ -109,4 +109,24 @@ app.post("/api/addUser", function (req, res)
 
 } );
 
+//get charities - used in charities screen
+app.get("/api/charities", function (req, res) 
+{
+
+    connection.query(`SELECT * FROM pat_2024.charities`, function(err, result) 
+    {
+      if (err) 
+      {
+        console.error('Error executing query:', err);
+        res.status(500).send('Internal server error');
+        return;
+      }
+
+      console.log(result);
+      res.send(result);
+
+    });
+
+}
+);
 
