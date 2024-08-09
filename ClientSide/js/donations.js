@@ -39,7 +39,7 @@ function populateDonationsTable(donations_needed){
         const itemName = document.createElement('td');
         itemName.textContent = dn.item_name;
 
-        const button = document.createElement('donateButton');
+        const button = document.createElement('button');
         button.textContent = 'Donate';
 
         //have to create a normal table data element as usual - also have to make a button (diff element)
