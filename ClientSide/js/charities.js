@@ -38,4 +38,13 @@ function createCharityCards(charities){
 
         card.appendChild(image);
         card.appendChild(name);
-        card.appendChild(desc
+        card.appendChild(description);
+
+        container.appendChild(card);
+
+        
+    });
+    
+
+}
+
