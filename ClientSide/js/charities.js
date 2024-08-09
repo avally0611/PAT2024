@@ -1,13 +1,13 @@
 window.addEventListener('load', function () {
     console.log('All assets are loaded');
-    fetchCharities();
+    fetchDonations();
 });
 
-function fetchCharities() {
+function fetchDonations() {
     fetch('http://localhost:8383/api/charities')
         .then(response => response.json())
         .then(data => {
-            createCards(data);
+            populateDonationsTable(data);
             
         })
         .catch(error => {
@@ -16,7 +16,7 @@ function fetchCharities() {
 
 }
 
-function createCards(charities){
+function populateDonationsTable(charities){
 
     const container = document.getElementById('cards-container');
 
