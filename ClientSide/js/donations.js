@@ -99,11 +99,11 @@ function searchTable(rows, input){
     //do a foreach to check each row for text in search bar
     rows.forEach(row => {
         console.log(row);
-
         
-        var rowText = row.textContent.toLowerCase();
-        console.log(rowText);
+        //when you get the text content - it includes the button text - since we know it is donate - we can just remove it by using .replace
+        var rowText = row.textContent.toLowerCase().replace('donate', '');
 
+        console.log(rowText);
         
         if (rowText.includes(input))
         {
