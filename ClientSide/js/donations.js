@@ -1,6 +1,7 @@
 window.addEventListener('load', function () {
     console.log('All assets are loaded');
     fetchDonations();
+    
 });
 
 function fetchDonations() {
@@ -60,14 +61,12 @@ function populateDonationsTable(donations_needed){
 
         //add entire row to actual table
         tableBody.appendChild(row);
+
+    
     });
 
+    search();
 
-
-    
-
-
-    
 
 }
 
@@ -78,3 +77,44 @@ function donate(donationID)
     
 }
 
+//this will be the search function: 
+function search(){
+
+    var inputField = document.getElementById('searchInput');
+    
+    //we have to do this because we just want the rows specifically - we want a list of all rows not just the tbody element
+    //also - it gets the rows as a node list which just has a list of html elements
+    var rows = document.querySelectorAll("#tbody tr");
+
+
+    //every time a letter is typed, the searching algorithm will be called)
+    inputField.addEventListener('keyup', function() {
+        searchTable(rows, inputField.value.toLowerCase());
+    });
+
+}
+
+function searchTable(rows, input){
+
+    //do a foreach to check each row for text in search bar
+    rows.forEach(row => {
+        console.log(row);
+
+        
+        var rowText = row.textContent.toLowerCase();
+        console.log(rowText);
+
+        
+        if (rowText.includes(input))
+        {
+            console.log('match');
+            //when you use .style - you can modify element's css - in this case, we are making it visible (using css property of display)
+            row.style.display = '';
+        }
+        else
+        {
+            row.style.display = 'none';
+            console.log('no match');
+        }
+    });
+}
