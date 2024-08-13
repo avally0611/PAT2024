@@ -1,16 +1,25 @@
+console.log("Server is starting");
+
 const express = require("express");
+console.log("Express is running");
 const cors = require("cors");
+console.log("Cors is running");
 const app = express();
+console.log("App is running");
 const port = 8383;
 
 app.use(cors());
 app.use(express.json());
+
+console.log("Server is running");
+
+console.log("Connecting to SQL");
 //MySQL connection
 const mysql = require('mysql2');
 
 // create a new MySQL connection
 const connection = mysql.createConnection({
-  host: 'localhost',
+  host: '127.0.0.1',
   user: 'root',
   password: '1786',
   database: 'pat_2024'
@@ -24,6 +33,8 @@ connection.connect((error) => {
     console.log('Connected to MySQL database!');
   }
 });
+
+console.log("Connection created");
 
 
 //JSON get request for hello world - basically testing server works
