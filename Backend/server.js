@@ -1,17 +1,10 @@
-console.log("Server is starting");
-
 const express = require("express");
-console.log("Express is running");
 const cors = require("cors");
-console.log("Cors is running");
 const app = express();
-console.log("App is running");
 const port = 8383;
 
 app.use(cors());
 app.use(express.json());
-
-console.log("Server is running");
 
 console.log("Connecting to SQL");
 //MySQL connection

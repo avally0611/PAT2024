@@ -25,11 +25,6 @@ function populateDonationsTable(donations_needed){
 
         const row = document.createElement('tr');
 
-        //dont actually need this - just need it for a function
-        // const donationID = document.createElement('td');
-        // donationID.textContent = dn.donation_id;
-
-
         //we need to get the name of charity id from table
         const charityID = document.createElement('td');
         charityID.textContent = dn.charity_id;
@@ -73,6 +68,8 @@ function populateDonationsTable(donations_needed){
 //when user clicks on an entry to donate to - take them to confirmation page?
 function donate(donationID)
 {
+    //redirect to donation page with the parameter of donation id + and then gives the donation id that is clicked
+    window.location.href = 'confirmation.html?donation_id=' + donationID;
 
     
 }
@@ -118,3 +115,4 @@ function searchTable(rows, input){
         }
     });
 }
+

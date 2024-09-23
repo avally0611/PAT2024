@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 
 <body>
@@ -32,9 +34,13 @@
                 <li class="nav-item">
                   <a class="nav-link"  href="charities.html">Charities</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="donations.html">Donation</a>
-                </li>
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle active" data-toggle="dropdown"  href="#" role="button" aria-haspopup="true" aria-expanded="false">Donate</a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="donateMoney.html">Donate Money!</a>
+                  <a class="dropdown-item" href="donations.html">Donate items!</a>
+                </div>
+              </li>
                 <li class="nav-item">
                     <a class="nav-link" href="profile.html">Profile</a>
                 </li> 
@@ -49,9 +55,6 @@
         <div class="search-bar">
             <input class="form-control" type="text" id="searchInput" placeholder="Search...">
         </div>
-
-        <!-- create a filter for the table -->
-        <!-- not sure yet - might do later -->>
 
 
         <!-- TABLE OF DONATIONS NEEDED -->

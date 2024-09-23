@@ -7,36 +7,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="../css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
 
 </head>
 
-<body>
-  <div class="header">
-
-      <!-- NAVIGATION BAR -->
+<body>  
+      <!-- NAVIGATION BAR (SAME FOR EVERY CLASS)-->
       <nav class="navbar navbar-expand-lg custom-navbar w-100">
-
+  
           <!-- LOGO? -->
           <a class="navbar-brand" href="#">DONORDIRECT</a>
-
+  
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
-
+  
             <ul class="navbar-nav ml-auto">
-
+  
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link" aria-current="page" href="#">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="charities.html">Charities</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Donate</a>
+                <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Donate</a>
                 <div class="dropdown-menu">
                   <a class="dropdown-item" href="donateMoney.html">Donate Money!</a>
                   <a class="dropdown-item" href="donations.html">Donate items!</a>
@@ -45,50 +44,58 @@
               <li class="nav-item">
                   <a class="nav-link" href="profile.html">Profile</a>
               </li> 
-
+  
             </ul>
-
+  
           </div>
-
+  
       </nav>
 
-      <header class="header">
-        <div class="overlay">
-          <div class="container-intro" >
-            <div class="row align-items-center" style="height: 100vh;">
-              <div class="col-md-6 text-center">
-                <h1 class="display-2">Welcome to DonorDirect</h1>
-                <p class="lead">The best way to donate to your favorite charities</p>
-                <button class="btn btn-primary">Get Started</button>
+      <!-- card to allow user to input how much they want to donate -->
+       <div class="donateMoneySection">
+
+        <div class="card">
+          <div class="card-body">
+
+            <!-- dropdown menu of charities -->
+            <div class="charity-dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                Select a charity
+              </button>
+
+              <ul class="dropdown-menu" id="dropdown-menu">
+                <!-- add a search function in drop down -->
+                <li class="dropdown-search-bar">
+                  <input class="form-control" type="text" id="searchInput" placeholder="Search...">
+                </li>
+
+                <!-- this is where the list will be populated -->
+
+              </ul>    
+            </div>
+
+            <!-- input field for donation amount (directly from boostrap) -->
+            <div class="donationInput">
+              <div class="input-group mb-3">
+                <div class="input-group-text">R</div>
+                <input type="text" class="donationAmount" id="donationAmount" placeholder="Enter amount">
+                <div class="input-group-text">.00</div>
               </div>
             </div>
-          
-    
+
+            <!-- button to submit donation -->
+            <button type="button" class="btn btn-secondary btn-lg">Submit Donation</button>
+            
+            
+            
+            </div>
         </div>
-      </header>
-
-      <div class="about" id="about">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-6">
-              <h2>About Us</h2>
-              <p>
       </div>
-      
-    </div>
-  </div>
-
-  
-
-  
-  
-    
-
    
+    <script src="../js/donateMoney.js"></script>
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script src="../js/index.js"></script>
 
 </html>
