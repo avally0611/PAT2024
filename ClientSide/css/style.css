@@ -177,3 +177,76 @@ body {
     
 }
 
+.payment-container{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row;
+    justify-content: center;
+    padding: 20px;
+
+}
+
+
+.payment-container .card{
+    height: 600px;
+    width: 800px;
+    padding: 5px;
+    margin-top: 50px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    
+}
+
+.card-details{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    padding: 20px;
+    height: fit-content;
+    width: 100%;
+    font-size: 25px;
+}
+
+.card-details button{
+    margin-top: 30px;
+    background-color: #7f627b;
+    color: #E1CDB5;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    padding: 10px 40px;
+    border-radius: 5px;
+
+}
+
+#summaryCard{
+    height: 600px;
+    width: 300px;
+    margin-top: 50px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+}
+
+#summaryCard h1{
+    padding-bottom: 10px;
+}
+
+.card-details label, .card-details input{
+    width: 600px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;    
+    margin-bottom: 7px;
+}
