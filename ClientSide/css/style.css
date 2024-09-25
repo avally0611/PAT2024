@@ -210,9 +210,11 @@ body {
     height: fit-content;
     width: 100%;
     font-size: 25px;
+    
 }
 
 .card-details button{
+    width: 165px;
     margin-top: 30px;
     background-color: #7f627b;
     color: #E1CDB5;
@@ -221,6 +223,7 @@ body {
     border: none;
     padding: 10px 40px;
     border-radius: 5px;
+    margin-right: 20px;
 
 }
 
@@ -249,4 +252,9 @@ body {
     font-size: 20px;
     font-weight: bold;    
     margin-bottom: 7px;
+}
+
+.button-container{
+    display: flex;
+    flex-direction: row;
 }
