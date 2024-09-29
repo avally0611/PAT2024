@@ -44,7 +44,7 @@ function populateDonationsTable(donations_needed){
 
         //when button clicked - do this...
         button.addEventListener('click', function() {
-            donate(dn.donation_id);
+            donate(dn.item_name);
 
         });
 
@@ -66,33 +66,33 @@ function populateDonationsTable(donations_needed){
 }
 
 //when user clicks on an entry to donate to - increase cart number
-function donate(donationID)
+function donate(item_name)
 {
    //get num items already by getting span elemtn and 
     const numItems = parseInt(document.getElementById('cart-num-items').textContent);
 
     //set span element to new number of items
-    localStorage.setItem('numCartItems', numItems + 1);
+    sessionStorage.setItem('numCartItems', numItems + 1);
 
     //we have to do this as cart will only update when page is refreshed
     document.getElementById('cart-num-items').textContent = numItems + 1;
 
 
     //add donation to cart
-    addDonationToCartLocalStorage(donationID);
+    addDonationToCartSessionStorage(item_name);
     
 
     
 }
 
-function addDonationToCartLocalStorage(donationID)
+function addDonationToCartSessionStorage(item_name)
 {
     //so essentially we get the cartItems array from local storage
     //if there is no array - we make one
     //we then add the dpnation id to the array
     //we then add the array to local storage under the field 'cartItems'
 
-    let cartItems = JSON.parse(localStorage.getItem('cartItems'));
+    var cartItems = JSON.parse(sessionStorage.getItem('cartItems'));
 
     
     if (cartItems == null)
@@ -101,9 +101,9 @@ function addDonationToCartLocalStorage(donationID)
     }
 
     //for JS array - we just need to yse .push method to add to array 
-    cartItems.push(donationID);
+    cartItems.push(item_name);
 
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
 
 }
 //this will be the search function: 

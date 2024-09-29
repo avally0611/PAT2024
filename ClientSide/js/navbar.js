@@ -3,7 +3,7 @@
 //2. control local sotrage that stores user name
 window.addEventListener('DOMContentLoaded', function(){
 
-    const numItems = localStorage.getItem('numCartItems');
+    const numItems = sessionStorage.getItem('numCartItems');
 
     const cartItemsSpan = document.getElementById('cart-num-items');
 
