@@ -16,44 +16,60 @@
     <div class="container-fluid gx-0 ">
 
         <!-- NAVIGATION BAR -->
-        <nav class="navbar navbar-expand-lg custom-navbar">
+        <nav class="navbar navbar-expand-lg navbar-custom">
 
-            <!-- LOGO? -->
-            <a class="navbar-brand" href="#">DONORDIRECT</a>
+          <!-- LOGO -->
+          <a class="navbar-brand" href="#">DONORDIRECT</a>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
 
-              <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto">
 
-                <li class="nav-item">
-                  <a class="nav-link" href="index.html">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link"  href="charities.html">Charities</a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Donate</a>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="donateMoney.html">Donate Money!</a>
-                    <a class="dropdown-item" href="donations.html">Donate items!</a>
-                  </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="profile.html">Profile</a>
-                </li> 
+              <li class="nav-item">
+                <a class="nav-link" href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="charities.html">Charities</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Donate</a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="donateMoney.html">Donate Money!</a>
+                  <a class="dropdown-item" href="donations.html">Donate items!</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link active dropdown-toggle" aria-current="page" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Welcome </a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="profile.html">Profile</a>
+                  <a class="dropdown-item" href="index.html">Signout</a>
+                </div>
+              </li>
+              <li class="nav-item"></li>
+                <a class="nav-link" href="cart.html">
 
-              </ul>
+                  <!-- add picture of cart -->
+                  <img src="../images/shopping-cart.png" alt="cart" style="width: 30px; height: 30px;">
 
-            </div>
+                  <!-- add badge for cart count - we use span beause it is a basic text element (doesnt start new line)-->
+                  <span id="cart-num-items" class="cart-num-items">0</span>
 
-        </nav>
+                </a>
+              </li>
+
+            </ul>
+
+          </div>
+
+      </nav>
         
     </div>
 
-   
+    <script src="../js/index.js"></script>
+    <script src="../js/navbar.js"></script>
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

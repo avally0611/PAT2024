@@ -25,7 +25,7 @@ function createCharityCards(charities){
         card.className = 'card';
 
         const image = document.createElement('img');
-        image.src = ("https://www.econlib.org/wp-content/uploads/2018/02/Charity-scaled.jpeg");
+        image.src = charity.logo;
         image.className = 'card-image';
 
         const name = document.createElement('h3');

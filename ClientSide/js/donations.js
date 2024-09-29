@@ -65,15 +65,47 @@ function populateDonationsTable(donations_needed){
 
 }
 
-//when user clicks on an entry to donate to - take them to confirmation page?
+//when user clicks on an entry to donate to - increase cart number
 function donate(donationID)
 {
-    //redirect to donation page with the parameter of donation id + and then gives the donation id that is clicked
-    window.location.href = 'confirmation.html?donation_id=' + donationID;
+   //get num items already by getting span elemtn and 
+    const numItems = parseInt(document.getElementById('cart-num-items').textContent);
+
+    //set span element to new number of items
+    localStorage.setItem('numCartItems', numItems + 1);
+
+    //we have to do this as cart will only update when page is refreshed
+    document.getElementById('cart-num-items').textContent = numItems + 1;
+
+
+    //add donation to cart
+    addDonationToCartLocalStorage(donationID);
+    
 
     
 }
 
+function addDonationToCartLocalStorage(donationID)
+{
+    //so essentially we get the cartItems array from local storage
+    //if there is no array - we make one
+    //we then add the dpnation id to the array
+    //we then add the array to local storage under the field 'cartItems'
+
+    let cartItems = JSON.parse(localStorage.getItem('cartItems'));
+
+    
+    if (cartItems == null)
+    {
+        cartItems = [];
+    }
+
+    //for JS array - we just need to yse .push method to add to array 
+    cartItems.push(donationID);
+
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+}
 //this will be the search function: 
 function search(){
 

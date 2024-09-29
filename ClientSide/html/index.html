@@ -42,9 +42,24 @@
                   <a class="dropdown-item" href="donations.html">Donate items!</a>
                 </div>
               </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="profile.html">Profile</a>
-              </li> 
+              <li class="nav-item dropdown">
+                <a class="nav-link active dropdown-toggle" aria-current="page" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Welcome </a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="profile.html">Profile</a>
+                  <a class="dropdown-item" href="index.html">Signout</a>
+                </div>
+              </li>
+              <li class="nav-item"></li>
+                <a class="nav-link" href="cart.html">
+
+                  <!-- add picture of cart -->
+                  <img src="../images/shopping-cart.png" alt="cart" style="width: 30px; height: 30px;">
+
+                  <!-- add badge for cart count - we use span beause it is a basic text element (doesnt start new line)-->
+                  <span id="cart-num-items" class="cart-num-items">0</span>
+
+                </a>
+              </li>
 
             </ul>
 
@@ -83,12 +98,12 @@
   
   
     
-
-   
+  <script src="../js/index.js"></script>
+  <script src="../js/navbar.js"></script>
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script src="../js/index.js"></script>
+
 
 </html>
