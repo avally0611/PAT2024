@@ -44,7 +44,8 @@ function populateDonationsTable(donations_needed){
 
         //when button clicked - do this...
         button.addEventListener('click', function() {
-            donate(dn.item_name);
+            //we need to pass how many items needed because we will use it in the cart.html for the max value of slider
+            donate(dn.item_name, dn.quantity);
 
         });
 
@@ -66,7 +67,7 @@ function populateDonationsTable(donations_needed){
 }
 
 //when user clicks on an entry to donate to - increase cart number
-function donate(item_name)
+function donate(item_name, donation_quantity) 
 {
    //get num items already by getting span elemtn and 
     const numItems = parseInt(document.getElementById('cart-num-items').textContent);
@@ -79,31 +80,43 @@ function donate(item_name)
 
 
     //add donation to cart
-    addDonationToCartSessionStorage(item_name);
+    addDonationToCartSessionStorage(item_name, donation_quantity);
     
 
     
 }
 
-function addDonationToCartSessionStorage(item_name)
+function addDonationToCartSessionStorage(item_name, donation_quantity)
 {
     //so essentially we get the cartItems array from local storage
     //if there is no array - we make one
     //we then add the dpnation id to the array
     //we then add the array to local storage under the field 'cartItems'
 
+    //this is for name of the cartItems
     var cartItems = JSON.parse(sessionStorage.getItem('cartItems'));
-
+    
+    //this is for the id of the cartItems
+    var cartItemsQuantity = JSON.parse(sessionStorage.getItem('cartItemsQuantity'));
     
     if (cartItems == null)
     {
         cartItems = [];
     }
 
+    if (cartItemsQuantity == null)
+    {
+        cartItemsQuantity = [];
+    }
+
     //for JS array - we just need to yse .push method to add to array 
     cartItems.push(item_name);
 
+    //we have to add the id of the donation to the cartItemsID array
+    cartItemsQuantity.push(donation_quantity);
+
     sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
+    sessionStorage.setItem('cartItemsQuantity', JSON.stringify(cartItemsQuantity));
 
 }
 //this will be the search function: 
