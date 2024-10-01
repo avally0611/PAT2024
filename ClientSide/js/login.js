@@ -35,6 +35,7 @@ function verifyData() {
         if (data == 'true')
         {
             console.log('Login successful');
+            sessionStorage.setItem('username', username);
             
         }
         else

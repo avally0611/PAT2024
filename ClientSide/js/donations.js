@@ -1,14 +1,15 @@
+const donationItemsArr = [];
+
 window.addEventListener('load', function () {
     console.log('All assets are loaded');
-    fetchDonations();
-    
+    fetchRequests();
 });
 
-function fetchDonations() {
-    fetch('http://localhost:8383/api/donations')
+function fetchRequests() {
+    fetch('http://localhost:8383/api/requests')
         .then(response => response.json())
         .then(data => {
-            populateDonationsTable(data);
+            createRequestTables(data);
             
         })
         .catch(error => {
@@ -17,46 +18,97 @@ function fetchDonations() {
 
 }
 
-function populateDonationsTable(donations_needed){
+function createRequestTables(donations_needed){
 
-    const tableBody = document.getElementById('tbody');
+    const container = document.getElementById('requests-container');
+
 
     donations_needed.forEach(dn => {
+        console.log(dn);    
+        //THIS CREATES AN ENTIRE NEW TABLE FOR EACH CHARITY
+        const tableHeading = document.createElement('h2');
+        tableHeading.textContent = dn.name;
+        tableHeading.classList.add('table-text');
 
-        const row = document.createElement('tr');
+        //this just creates the table settings or header - basically look at how bootstrap does it and create manually 
+        const table = document.createElement('table');
+        //bootstrap classes
+        table.classList.add('table', 'table-scrollable', 'table-hover', 'table-bordered');
 
-        //we need to get the name of charity id from table
-        const charityID = document.createElement('td');
-        charityID.textContent = dn.charity_id;
-        
-        const quantity = document.createElement('td');
-        quantity.textContent = dn.quantity;
+        const thead = document.createElement('thead');
+        const rowHeader = document.createElement('tr');
+        const headers = ['Item Name', 'Quantity Needed', 'Donate'];
 
-        const itemName = document.createElement('td');
-        itemName.textContent = dn.item_name;
-
-        const button = document.createElement('button');
-        button.textContent = 'Donate';
-
-        //have to create a normal table data element as usual - also have to make a button (diff element)
-        const buttonCell = document.createElement('td');
-        buttonCell.appendChild(button);
-
-        //when button clicked - do this...
-        button.addEventListener('click', function() {
-            //we need to pass how many items needed because we will use it in the cart.html for the max value of slider
-            donate(dn.item_name, dn.quantity);
-
+        //in one row - add all headers which have scope of column
+        headers.forEach(header => {
+            const th = document.createElement('th');
+            th.scope = 'col';
+            th.textContent = header;
+            rowHeader.appendChild(th);
         });
 
-        //adding all the elements to the row(across)
-        row.appendChild(charityID);
-        row.appendChild(itemName);
-        row.appendChild(quantity);
-        row.appendChild(buttonCell);
+        thead.appendChild(rowHeader);
+        table.appendChild(thead);
 
-        //add entire row to actual table
-        tableBody.appendChild(row);
+        //now we actually have to create/add body of table
+
+        const tableBody = document.createElement('tbody');
+
+        dn.requests.forEach(request => {
+            const rowBody = document.createElement('tr');
+            rowBody.classList.add('table-row');
+
+            //for every request - we have to create a new row (with itemname + qty + button)
+            const itemName = document.createElement('td');
+            itemName.textContent = request.item_name;
+
+            const quantity = document.createElement('td');
+            quantity.textContent = request.quantity;
+
+            const quantityChanger = document.createElement('input');
+            quantityChanger.classList.add('quantity-input');
+            quantityChanger.type = 'number';
+            quantityChanger.min = 1;
+            quantityChanger.max = request.quantity;
+            quantityChanger.value = 0;
+            quantityChanger.addEventListener('change', changeQuantity);
+
+            const button = document.createElement('button');
+            button.textContent = 'Send to cart';
+            button.classList.add('tableButton');
+
+            //have to create a normal table data element as usual - also have to make a button (diff element)
+            const buttonCell = document.createElement('td');
+            buttonCell.appendChild(button);
+        
+
+            //when button clicked - do this...
+            button.addEventListener('click', function() {
+                //we need to pass how many items needed because we will use it in the cart.html for the max value of slider
+                sendToCart(request.item_name, request.quantity, request.request_id);
+
+            });
+
+            //adding all the elements to the row(across)
+            rowBody.appendChild(itemName);
+            rowBody.appendChild(quantity);
+            rowBody.appendChild(quantityChanger);
+            rowBody.appendChild(buttonCell);
+
+    
+            //add entire row to actual table
+            tableBody.appendChild(rowBody);
+
+            });
+
+
+
+        
+        table.appendChild(tableBody);
+        container.appendChild(tableHeading);
+        container.appendChild(table);
+        
+        
 
     
     });
@@ -66,10 +118,17 @@ function populateDonationsTable(donations_needed){
 
 }
 
-//when user clicks on an entry to donate to - increase cart number
-function donate(item_name, donation_quantity) 
+function changeQuantity()
 {
-   //get num items already by getting span elemtn and 
+    console.log('Quantity changed');
+}
+
+
+//when user clicks on sendToCart buttton - saves the data of item to JSON object and sends to cart.html
+function sendToCart(item_name, donation_quantity_needed, request_id){
+
+    //THIS IS FOR VISUAL PURPOSES - INCREASES NUMBER ON CART ICON
+    //get num items already by getting span elemtn and 
     const numItems = parseInt(document.getElementById('cart-num-items').textContent);
 
     //set span element to new number of items
@@ -78,45 +137,57 @@ function donate(item_name, donation_quantity)
     //we have to do this as cart will only update when page is refreshed
     document.getElementById('cart-num-items').textContent = numItems + 1;
 
+    
+    //THIS IS FOR CODE PURPOSE - SENDS ITEM AS JSON OBJECT TO DISPLAY IN CART.HTML
+    //we need to create a JSON object to send to cart.html
+    const donationItem = {
+        item_name: item_name,
+        donation_quantity_needed: donation_quantity_needed,
+        donation_id: request_id,
+        donation_quantity: 1
+    };
 
-    //add donation to cart
-    addDonationToCartSessionStorage(item_name, donation_quantity);
+    var donationItemsArr = JSON.parse(sessionStorage.getItem('donationItemsArr'));
+
+    if (donationItemsArr == null)
+    {
+        donationItemsArr = [];
+    }
+
+    if (itemExistsInArr(item_name, donationItemsArr))
+    {
+        //we need to find the item in the array and increase the quantity
+        for (var i = 0; i < donationItemsArr.length; i++)
+        {
+            if (item_name == donationItemsArr[i].item_name)
+            {
+                donationItemsArr[i].donation_quantity ++;
+            }
+        }
+
+    }
+    else
+    {
+        donationItemsArr.push(donationItem);
+    }
     
 
-    
+    sessionStorage.setItem('donationItemsArr', JSON.stringify(donationItemsArr));
+  
+
 }
 
-function addDonationToCartSessionStorage(item_name, donation_quantity)
+function itemExistsInArr(item_name, donationItemsArr)
 {
-    //so essentially we get the cartItems array from local storage
-    //if there is no array - we make one
-    //we then add the dpnation id to the array
-    //we then add the array to local storage under the field 'cartItems'
-
-    //this is for name of the cartItems
-    var cartItems = JSON.parse(sessionStorage.getItem('cartItems'));
-    
-    //this is for the id of the cartItems
-    var cartItemsQuantity = JSON.parse(sessionStorage.getItem('cartItemsQuantity'));
-    
-    if (cartItems == null)
+    for (var i = 0; i < donationItemsArr.length; i++)
     {
-        cartItems = [];
+        if (item_name == donationItemsArr[i].item_name)
+        {
+            return true;
+        }
     }
 
-    if (cartItemsQuantity == null)
-    {
-        cartItemsQuantity = [];
-    }
-
-    //for JS array - we just need to yse .push method to add to array 
-    cartItems.push(item_name);
-
-    //we have to add the id of the donation to the cartItemsID array
-    cartItemsQuantity.push(donation_quantity);
-
-    sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
-    sessionStorage.setItem('cartItemsQuantity', JSON.stringify(cartItemsQuantity));
+    return false;
 
 }
 //this will be the search function: 
@@ -142,8 +213,8 @@ function searchTable(rows, input){
     rows.forEach(row => {
         console.log(row);
         
-        //when you get the text content - it includes the button text - since we know it is donate - we can just remove it by using .replace
-        var rowText = row.textContent.toLowerCase().replace('donate', '');
+        //when you get the text content - it includes the button text - since we know it is sendToCart - we can just remove it by using .replace
+        var rowText = row.textContent.toLowerCase().replace('sendToCart', '');
 
         console.log(rowText);
         

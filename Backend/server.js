@@ -105,8 +105,6 @@ app.post("/api/addUser", function (req, res)
       
       console.log('true');
       res.send('true');
-      
-
 
 
     });
@@ -116,7 +114,6 @@ app.post("/api/addUser", function (req, res)
 //get charities - used in charities screen
 app.get("/api/charities", function (req, res) 
 {
-
     connection.query(`SELECT * FROM pat_2024.charities`, function(err, result) 
     {
       if (err) 
@@ -134,10 +131,67 @@ app.get("/api/charities", function (req, res)
 }
 );
 
-app.get("/api/donations", function (req, res) 
+app.get("/api/requests", function (req, res) 
 {
 
-    connection.query(`SELECT * FROM pat_2024.charity_needs`, function(err, result) 
+  //this will hold JSON array with charity objects which have a name and an array of requests (item name and quantity needed)
+    var requests = [];
+
+    connection.query(`SELECT DISTINCT name FROM pat_2024.requests INNER JOIN charities ON requests.charity_id = charities.charity_id`, function(err, resultCharities) 
+    {
+      if (err) 
+      {
+        console.error('Error executing query:', err);
+        res.status(500).send('Failed in getting list of charities');
+        return;
+      }
+
+      //we jhave to have a count of how many charities we have to get requests for because if you use forEach it will not wait for the queries to finish and then it will automatically sned the response
+      var numberOfCharities = resultCharities.length;
+
+      if (numberOfCharities == 0)
+      {
+        res.send(requests);
+      }
+
+      resultCharities.forEach(charity => {
+
+        connection.query(`SELECT request_id, item_name, quantity FROM pat_2024.requests INNER JOIN charities ON requests.charity_id = charities.charity_id  INNER JOIN items ON items.item_id = requests.item_id WHERE name = '${charity.name}'`, function(err, result)
+        {
+          if (err) 
+          {
+            console.error('Error executing query:', err);
+            res.status(500).send('Failed in getting the items for the charity');
+            
+          }
+
+          requests.push({name: charity.name,requests: result});
+          console.log({name: charity.name, requests: result});
+
+          numberOfCharities --;
+
+          if (numberOfCharities == 0)
+          {
+            res.send(requests);
+          }
+                  
+        });
+        
+      });
+
+      
+
+    });
+
+
+});
+
+app.post("/api/addDonation", function (req, res)
+{
+    const username = JSON.parse(sessionStorage.getItem('username'));
+    const donor_id = 0;
+
+    connection.query(`SELECT donor_id FROM pat_2024.donors WHERE username = '${username}'`, function(err, result) 
     {
       if (err) 
       {
@@ -147,10 +201,27 @@ app.get("/api/donations", function (req, res)
       }
 
       console.log(result);
-      res.send(result);
+      donor_id = result[0].donor_id;
 
     });
 
-}
-);
+    console.log(donor_id)
+
+    connection.query(`INSERT INTO pat_2024.donations (donor_id) VALUES ("'${donor_id}'");`, function(err, result) 
+    {
+      if (err) 
+      {
+        console.error('Error executing query:', err);
+        res.status(500).send('Internal server error');
+        return;
+      }
+      
+      console.log('true');
+      res.send('true');
+
+
+
+    });
+
+});
 
