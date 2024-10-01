@@ -53,6 +53,7 @@ function createRequestTables(donations_needed){
         //now we actually have to create/add body of table
 
         const tableBody = document.createElement('tbody');
+        tableBody.classList.add('table-body');
 
         dn.requests.forEach(request => {
             const rowBody = document.createElement('tr');
@@ -64,15 +65,7 @@ function createRequestTables(donations_needed){
 
             const quantity = document.createElement('td');
             quantity.textContent = request.quantity;
-
-            const quantityChanger = document.createElement('input');
-            quantityChanger.classList.add('quantity-input');
-            quantityChanger.type = 'number';
-            quantityChanger.min = 1;
-            quantityChanger.max = request.quantity;
-            quantityChanger.value = 0;
-            quantityChanger.addEventListener('change', changeQuantity);
-
+            
             const button = document.createElement('button');
             button.textContent = 'Send to cart';
             button.classList.add('tableButton');
@@ -80,6 +73,26 @@ function createRequestTables(donations_needed){
             //have to create a normal table data element as usual - also have to make a button (diff element)
             const buttonCell = document.createElement('td');
             buttonCell.appendChild(button);
+
+            //we have to create a quantity changer - this is an input element
+            const quantityChanger = document.createElement('input');
+            quantityChanger.classList.add('quantity-input');
+            quantityChanger.id = 'quantityInput';
+            quantityChanger.type = 'number';
+            quantityChanger.min = 1;
+            quantityChanger.max = request.quantity;
+            quantityChanger.value = 1;
+            quantityChanger.addEventListener('change', changeQuantity);
+
+            //if user types in a number greater than the max - it will automatically set to max (we still wanna let user enter because it is strenous to keep clicking)
+            quantityChanger.addEventListener('keyup', function() {
+                checkQuantity(quantityChanger.max);
+                if (quantityChanger.value === '')
+                {
+                    quantityChanger.value = 1;
+                }
+        
+            });
         
 
             //when button clicked - do this...
@@ -121,6 +134,19 @@ function createRequestTables(donations_needed){
 function changeQuantity()
 {
     console.log('Quantity changed');
+}
+
+function checkQuantity(max)
+{
+    console.log('Checking quantity');
+    var quantity = parseInt(document.getElementById('quantityInput').value);
+    console.log(quantity,max);
+
+    if (quantity > max)
+    {
+        document.getElementById('quantityInput').value = max;
+    }
+    
 }
 
 
@@ -197,8 +223,7 @@ function search(){
     
     //we have to do this because we just want the rows specifically - we want a list of all rows not just the tbody element
     //also - it gets the rows as a node list which just has a list of html elements
-    var rows = document.querySelectorAll("#tbody tr");
-
+    var rows = document.querySelectorAll("tbody tr");
 
     //every time a letter is typed, the searching algorithm will be called)
     inputField.addEventListener('keyup', function() {
