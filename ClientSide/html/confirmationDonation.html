@@ -4,18 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confirmation Page</title>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-    <header>
-        <h1>Payment Confirmation</h1>
-    </header>
-    <main>
-        <p>Thank you for your donation. The charity will contact you for donation or collection</p>
-    </main>
-    <footer>
-        <p>&copy; 2024 DonorDirect. All rights reserved.</p>
-    </footer>
+    <div class="confirmationContainer">
 
-    <button onclick="window.location.href = 'index.html';">Back to Home</button>
+        <header>
+            <h1>Payment Confirmation</h1>
+        </header>
+        <main>
+            <p>Thank you for your donation. The charity will contact you for delivery or collection</p>
+        </main>
+        <footer>
+            <p>&copy; 2024 DonorDirect. All rights reserved.</p>
+        </footer>
+
+        <button id="returnButton">Back to Home</button>
+
+
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../js/confirmation.js"></script>
+    
+
 </body>
 </html>

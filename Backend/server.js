@@ -64,6 +64,7 @@ app.post("/api/verifyLogin", function (req, res)
       if (result.length == 0)
       {
         res.send('false');
+        res.status(404).send('User not found');
       }
       else
       {
@@ -186,20 +187,29 @@ app.get("/api/requests", function (req, res)
 
 });
 
+
 app.post("/api/addDonation", function (req, res)
 {
-    const username = JSON.parse(sessionStorage.getItem('username'));
+  //we passed an array 
+    const username = req.body.username;
     const donor_id = 0;
+    const cartItem = req.body.cartItem;
+    const request_id = cartItem.request_id;
+    const donation_quantity = cartItem.donation_quantity;
 
     connection.query(`SELECT donor_id FROM pat_2024.donors WHERE username = '${username}'`, function(err, result) 
     {
       if (err) 
       {
-        console.error('Error executing query:', err);
-        res.status(500).send('Internal server error');
+        console.error('Error getting id:', err);
+        res.status(500).send('error getting donor id');
         return;
       }
 
+      if (result.length === 0) {
+        res.status(404).send('Donor not found');
+        return;
+      }
       console.log(result);
       donor_id = result[0].donor_id;
 
@@ -211,8 +221,8 @@ app.post("/api/addDonation", function (req, res)
     {
       if (err) 
       {
-        console.error('Error executing query:', err);
-        res.status(500).send('Internal server error');
+        console.error('error inserting into donations:', err);
+        res.status(500).send('error inserting into donations');
         return;
       }
       
@@ -223,5 +233,28 @@ app.post("/api/addDonation", function (req, res)
 
     });
 
-});
+    const donation_id = result.insertId;
 
+
+    //insert into donations_entry
+    connection.query(`INSERT INTO pat_2024.donations_entry (donor_id, request_id, quantity) VALUES ("'${donor_id}'", "'${request_id}'", "'${donation_quantity}'");`, function(err, result) 
+    {
+      if (err) 
+      {
+        console.error('Error inserting into donations_entry :', err);
+        res.status(500).send('eror inserting into donations_entry');
+        return;
+      }
+      
+      console.log('true');
+      res.send('true');
+
+
+
+    });
+
+
+
+
+
+});

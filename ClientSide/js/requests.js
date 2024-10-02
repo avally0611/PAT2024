@@ -82,7 +82,6 @@ function createRequestTables(donations_needed){
             quantityChanger.min = 1;
             quantityChanger.max = request.quantity;
             quantityChanger.value = 1;
-            quantityChanger.addEventListener('change', changeQuantity);
 
             //if user types in a number greater than the max - it will automatically set to max (we still wanna let user enter because it is strenous to keep clicking)
             quantityChanger.addEventListener('keyup', function() {
@@ -98,7 +97,7 @@ function createRequestTables(donations_needed){
             //when button clicked - do this...
             button.addEventListener('click', function() {
                 //we need to pass how many items needed because we will use it in the cart.html for the max value of slider
-                sendToCart(request.item_name, request.quantity, request.request_id);
+                sendToCart(dn.name, request.item_name, parseInt(quantityChanger.max),parseInt(quantityChanger.value), request.request_id);
 
             });
 
@@ -131,11 +130,9 @@ function createRequestTables(donations_needed){
 
 }
 
-function changeQuantity()
-{
-    console.log('Quantity changed');
-}
 
+
+//this function checks if the quantity entered is greater than the max - if it is, it will set the value to max (WE WANT TO ALLOW INPUT BEAUSE IT IS STRENUOUS TO KEEP CLICKING)
 function checkQuantity(max)
 {
     console.log('Checking quantity');
@@ -151,26 +148,27 @@ function checkQuantity(max)
 
 
 //when user clicks on sendToCart buttton - saves the data of item to JSON object and sends to cart.html
-function sendToCart(item_name, donation_quantity_needed, request_id){
+function sendToCart(charity_name, item_name, donation_quantity_needed, donation_quantity, request_id){
 
     //THIS IS FOR VISUAL PURPOSES - INCREASES NUMBER ON CART ICON
     //get num items already by getting span elemtn and 
     const numItems = parseInt(document.getElementById('cart-num-items').textContent);
 
     //set span element to new number of items
-    sessionStorage.setItem('numCartItems', numItems + 1);
+    sessionStorage.setItem('numCartItems', numItems + donation_quantity);
 
     //we have to do this as cart will only update when page is refreshed
-    document.getElementById('cart-num-items').textContent = numItems + 1;
+    document.getElementById('cart-num-items').textContent = numItems + donation_quantity;
 
     
     //THIS IS FOR CODE PURPOSE - SENDS ITEM AS JSON OBJECT TO DISPLAY IN CART.HTML
     //we need to create a JSON object to send to cart.html
     const donationItem = {
+        charity_name: charity_name,
         item_name: item_name,
         donation_quantity_needed: donation_quantity_needed,
-        donation_id: request_id,
-        donation_quantity: 1
+        request_id: request_id,
+        donation_quantity: donation_quantity
     };
 
     var donationItemsArr = JSON.parse(sessionStorage.getItem('donationItemsArr'));
@@ -180,16 +178,13 @@ function sendToCart(item_name, donation_quantity_needed, request_id){
         donationItemsArr = [];
     }
 
-    if (itemExistsInArr(item_name, donationItemsArr))
+    //this is used to find a duplicate item in the array - if it exists(same name and item), we will increase the quantity
+    var indexFound = itemExistsInArr(charity_name, item_name, donationItemsArr);
+    if (indexFound != -1)
     {
-        //we need to find the item in the array and increase the quantity
-        for (var i = 0; i < donationItemsArr.length; i++)
-        {
-            if (item_name == donationItemsArr[i].item_name)
-            {
-                donationItemsArr[i].donation_quantity ++;
-            }
-        }
+        //we need to increase quantity of item in array
+        donationItemsArr[indexFound].donation_quantity += donation_quantity;
+
 
     }
     else
@@ -203,17 +198,18 @@ function sendToCart(item_name, donation_quantity_needed, request_id){
 
 }
 
-function itemExistsInArr(item_name, donationItemsArr)
+//this function checks if an item already exists in the array (used only for sendToCart function to check if item already exists and§ increase quantity)
+function itemExistsInArr(charity_name, item_name, donationItemsArr)
 {
     for (var i = 0; i < donationItemsArr.length; i++)
     {
-        if (item_name == donationItemsArr[i].item_name)
+        if (item_name == donationItemsArr[i].item_name && charity_name == donationItemsArr[i].charity_name)
         {
-            return true;
+            return i;
         }
     }
 
-    return false;
+    return -1;
 
 }
 //this will be the search function: 
@@ -232,6 +228,8 @@ function search(){
 
 }
 
+
+//this function searches each table row for the text in the search bar and shows/hides the row accordingly
 function searchTable(rows, input){
 
     //do a foreach to check each row for text in search bar

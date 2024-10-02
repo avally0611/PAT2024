@@ -36,6 +36,7 @@ function verifyData() {
         {
             console.log('Login successful');
             sessionStorage.setItem('username', username);
+            window.location.href = "index.html";
             
         }
         else
