@@ -1,0 +1,130 @@
+.loginBody {
+    height: 100vh;
+    background-color: #E1CDB5;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;   
+}
+
+.loginContainer {
+    display: flex;
+    width: 80%;
+    max-width: 1200px;
+    height: 90vh;
+    background-color: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.leftSide {
+    width: 50%;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 32px;
+}
+
+.leftSide img {
+    width: 200px;
+    margin-bottom: 5px;
+}
+
+.leftSide h2 {
+    font-size: 20px;
+    color: #90708c;
+    text-align: center;
+    margin-bottom: 7px;
+}
+
+.loginBox {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+}
+
+label {
+    margin-bottom: 8px;
+    font-size: 15px;
+    color: #90708c;
+}
+
+input {
+    padding: 12px;
+    margin-bottom: 16px;
+    border: 1px solid #90708c;
+    border-radius: 5px;
+    font-size: 16px;
+    flex: 1;
+
+}
+
+.password-container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    
+}
+
+.loginButton {
+    padding: 12px;
+    background-color: #90708c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.loginButton:hover {
+    background-color: #685064;
+}
+
+.signup-link {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #90708c;
+    text-align: center;
+}
+
+.signup-link a {
+    color: #685064;
+}
+
+.rightSide{
+    background-color: #90708c;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%; /* Ensure it fills the full width of its parent */
+}
+
+.errorMessage{
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.showPassword{
+    cursor: pointer;
+    width: 20px; 
+    height: 20px; 
+    position: relative;
+    left: 70px
+    
+}
+
+.checkboxLabel {
+    font-size: 14px; 
+    color: #90708c;
+    position: relative; 
+    top:4px
+
+}

@@ -1,11 +1,24 @@
-const loginButt = document.getElementById('loginButt');
+document.addEventListener('DOMContentLoaded', function() 
+{
+    const loginButt = document.getElementById('loginButt');
 
-loginButt.addEventListener('click', verifyData);
+    loginButt.addEventListener('click', function(event) {
+        event.preventDefault();    
+        verifyData();
+    });
 
-const signupButt = document.getElementById('signupButt');
+    document.getElementById('showPassword').addEventListener('change', function() {
+        const password = document.getElementById('pass');
+        if (this.checked) {
+            password.type = 'text';
+        } else {
+            password.type = 'password';
+        }
+    });
 
-signupButt.addEventListener('click', register);
 
+}
+);
 
 //remember fetch method cannot be done in addEventListener
 function verifyData() {
@@ -36,27 +49,20 @@ function verifyData() {
         {
             console.log('Login successful');
             sessionStorage.setItem('username', username);
+            alert("Login successful");
             window.location.href = "index.html";
             
         }
         else
         {
-            console.log('Login failed');
+            errorMessage.textContent = "Login failed. Incorrect username or password."; // Display error message
+            errorMessage.style.display = "block"; // Show the error message
         }
 
   
 });
   
     
-}
-
-function register(){
-
-    //load signup html page
-    window.location.href = "signup.html";
-    
-
-
 }
 
 

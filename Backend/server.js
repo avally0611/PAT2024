@@ -94,23 +94,45 @@ app.post("/api/addUser", function (req, res)
 
     console.log(username, password, fname, lname, email, pnum);
 
-    //perform a insert query
-    connection.query('INSERT INTO pat_2024.donors (first_name, last_name, email, phone_number, username, password) VALUES (?, ?, ?, ?, ?, ?)', [fname, lname, email, pnum, username, password], function(err, result) 
+    //check if username already exists
+    connection.query('SELECT * FROM pat_2024.donors WHERE username = ?', [username], function(err, result) 
     {
       if (err) 
       {
         console.error('Error executing query:', err);
-        res.status(500).send('Internal server error');
+        res.status(500).send('Unsuccessful');
         return;
       }
-      
-      console.log('true');
-      res.send('true');
+
+      if (result.length > 0)
+      {
+        res.status(409).send('Username already exists');
+        return;
+      }
+      else
+      {
+          //perform a insert query
+        connection.query('INSERT INTO pat_2024.donors (first_name, last_name, email, phone_number, username, password) VALUES (?, ?, ?, ?, ?, ?)', [fname, lname, email, pnum, username, password], function(err, result) 
+        {
+          if (err) 
+          {
+            console.error('Error executing query:', err);
+            res.status(500).send('Unsuccessful');
+            return;
+          }
+        
+          console.log('true');
+          res.send('Successful');
 
 
+        });
+
+      }
     });
 
-} );
+    
+
+});
 
 //get charities - used in charities screen
 app.get("/api/charities", function (req, res) 
@@ -294,3 +316,4 @@ app.post("/api/addDonation", function (req, res)
     
 
 });
+

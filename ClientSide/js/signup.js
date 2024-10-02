@@ -1,12 +1,47 @@
-//ADD A POP UP FOR SUCCESSFUL SIGNUP
+let signupButton;
+let errorMessage;
 
-const signupButton = document.getElementById("signupButt");
+window.addEventListener('load', function() {
 
-signupButton.addEventListener('click', addUser);
+    signupButton = document.getElementById("signupButton");
 
-const loginButt = document.getElementById("loginButt");
+    signupButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        addUser();
+    });
 
-loginButt.addEventListener('click', signin)
+    const username = document.getElementById('username');
+    const password = document.getElementById('pass');
+    errorMessage = document.getElementById("errorMessage");
+
+    pass.addEventListener('keyup', function() {
+
+        checkPasswordStrength(password.value);
+
+    });
+
+});
+
+function checkPasswordStrength(password) {
+
+    const strength = {
+        1: 'Very Weak',
+        2: 'Weak',
+        3: 'Medium',
+        4: 'Strong',
+        5: 'Very Strong'
+    };
+
+    let strengthValue = 1;
+
+    if (password.length > 5) strengthValue++;
+    if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strengthValue++;
+    if (password.match(/[0-9]/)) strengthValue++;
+    if (password.match(/[$@#&!]/)) strengthValue++;
+    if (password.length > 12) strengthValue++;
+
+    document.getElementById("errorMessage").innerHTML = strength[strengthValue];
+}
 
 function addUser(){
     console.log('Button clicked');
@@ -35,11 +70,18 @@ function addUser(){
     //basically checks if theres a response, if there is convert to text and then check what text says
     .then(response => response.text()).then(data => 
     {
-        console.log(data);
-        if (data == 'true')
+        if (data === 'Successful')
         {
             console.log('Signup successful');
+            alert("Signup successful");
+            window.location.href = "login.html";
             
+        }
+        else if (data === 'Username already exists')
+        {
+            console.log('Username already exists');
+            errorMessage.textContent = "Username already exists"; 
+            errorMessage.style.display = "block";
         }
         else
         {
@@ -49,14 +91,5 @@ function addUser(){
   
     });
   
-}
-
-function signin(){
-
-    //load signup html page
-    window.location.href = "login.html";
-    
-
-
 }
 
