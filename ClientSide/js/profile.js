@@ -1,9 +1,4 @@
 let donor_id;
-const fname = document.getElementById('savedFirstname');
-const lname = document.getElementById('savedLastname');
-const email = document.getElementById('savedEmail');
-const phone = document.getElementById('savedPhone');
-const username = document.getElementById('savedUsername');
 window.addEventListener('DOMContentLoaded', function() 
 {
     const form = document.getElementById('profileForm');
@@ -76,7 +71,7 @@ function fetchProfileDetails()
 
         console.log('Success:', data);
         updateDetails(data);
-        donor_id = data.donor_id;
+        donor_id = data[0].donor_id;
     })
     .catch((error) => {
         console.error('Error:', error);
@@ -88,16 +83,27 @@ function fetchProfileDetails()
 
 function updateDetails(data)
 {
+    const fname = document.getElementById('savedFirstname');
+    const lname = document.getElementById('savedLastname');
+    const email = document.getElementById('savedEmail');
+    const phone = document.getElementById('savedPhone');
+    const username = document.getElementById('savedUsername');
     
-    fname.value = data.first_name;
-    lname.value = data.last_name;
-    email.value = data.email;
-    phone.value = data.phone_number;
-    username.value = data.username;
+    fname.value = data[0].first_name;
+    lname.value = data[0].last_name;
+    email.value = data[0].email;
+    phone.value = data[0].phone_number;
+    username.value = data[0].username;
 }
 
 function updateDetailsInTable()
 {
+    const fname = document.getElementById('savedFirstname');
+    const lname = document.getElementById('savedLastname');
+    const email = document.getElementById('savedEmail');
+    const phone = document.getElementById('savedPhone');
+    const username = document.getElementById('savedUsername');
+    
     fetch('http://localhost:8383/api/updateDetails', {
        
         method: 'POST',
