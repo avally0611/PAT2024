@@ -1,5 +1,17 @@
+let selectedCharity;
 const donateButton = document.getElementById('donate-button');
 donateButton.addEventListener('click', donateButtonClicked);
+
+const amount = document.getElementById('donationAmount');
+
+const dropdown = document.getElementById('dropdown-menu');
+
+dropdown.addEventListener('click', function(event){
+    selectedText = event.target.innerText;
+    console.log(selectedText);
+    selectedCharity = selectedText;
+});
+
 
 window.addEventListener('load', function () {
     console.log('All assets are loaded');
@@ -28,6 +40,7 @@ function createCharityDropdown(charities){
 
         const listDropdown = document.createElement('li');
         listDropdown.innerHTML = charity.name;
+        listDropdown.className = 'dropdown-item';
 
         container.append(listDropdown) ;
         
@@ -83,6 +96,22 @@ function searchComboBox(input, charities){
 
 function donateButtonClicked()
 {
+    console.log(selectedCharity);
+    
+
+    if (!selectedCharity) {
+        alert('Please select a charity before donating.');
+        return;
+    }
+
+    const monetaryDonation = 
+    {
+        charity: selectedCharity,
+        amount: parseInt(amount.value)
+    };
+
+    sessionStorage.setItem('monetaryDonation', monetaryDonation);
+    
     window.location.href = "payment.html";
 }
 

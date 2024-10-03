@@ -1,7 +1,15 @@
 //get pay button to lead to confirmation page
 const payButton = document.getElementById("pay-button");
-payButton.addEventListener("click", validateCardDetails);
+payButton.addEventListener("click", function(event){
+    event.preventDefault();
+    validateCardDetails();
+});
 
+const cancelButton = document.getElementById("cancelButt");
+cancelButton.addEventListener("click", function(event){
+    event.preventDefault();
+    window.location.href = "donateMoney.html";
+});
 //i will make method for number and expiry to limit bad input
 const cardNumber = document.getElementById("cardNumber");
 const cardExpiry = document.getElementById("expiryDate");
@@ -75,11 +83,43 @@ function validateCardDetails(){
     else
     {
         console.log("Card is not expired");
-        window.location.href = "confirmation.html";
+
+        addDonation();
 
         //we also have to send information about donation to table (monetary donation)
     }
     
+}
+
+function addDonation()
+{
+    const username = sessionStorage.getItem('username');
+    const monetaryDonation = JSON.parse(sessionStorage.getItem('monetaryDonation'));
+    
+    const charity = monetaryDonation.charity;
+    const amount = monetaryDonation.amount;
+    fetch('http://localhost:8383/api/addMonetaryDonation', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({username, charity, amount}),
+    })
+    .then(response => response.text())
+    .then(data => {
+
+        if (data === 'true')
+        {
+            console.log('Donation successful');
+            alert("Donation successful");
+            window.location.href = "confirmation.html";
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+       
+    });
+
 }
 
 

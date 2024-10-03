@@ -1,3 +1,9 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
 .loginBody {
     height: 100vh;
     background-color: #E1CDB5;
@@ -11,12 +17,12 @@
 
 .loginContainer {
     display: flex;
-    width: 80%;
-    max-width: 1200px;
+    width: 100vw;
     height: 90vh;
     background-color: white;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    margin: 0;
+    padding-right: 0px;
 }
 
 .leftSide {
@@ -98,12 +104,13 @@ input {
 }
 
 .rightSide{
+    width: 50%;
     background-color: #90708c;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 50%; /* Ensure it fills the full width of its parent */
+    padding: 0px;
 }
 
 .errorMessage{

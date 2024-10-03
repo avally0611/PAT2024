@@ -317,3 +317,140 @@ app.post("/api/addDonation", function (req, res)
 
 });
 
+app.post("/api/addMonetaryDonation", function (req, res)
+{
+
+  const username = req.body.username;
+  const charityName = req.body.charity;
+  const quantity = req.body.amount;
+
+
+
+  //gets the donor id using username (we can assume username is unique as their is a mrthod that makes sure ecah donor has unique username)
+  connection.query('SELECT donor_id FROM pat_2024.donors WHERE username = ?', [username], function(err, result) 
+  {
+
+    if (err) 
+    {
+      console.error('Error getting id:', err);
+      res.status(500).send('error getting donor id');
+      return;
+    }
+
+    
+
+    if (result.length === 0) 
+    {
+      res.status(404).send('Donor not found');
+      return;
+    }
+    const donor_id = parseInt(result[0].donor_id);
+
+    //then inserts into donations table using donor id that we got from the previous query
+    connection.query('INSERT INTO pat_2024.donations (donor_id) VALUES (?)', [donor_id], function(err, result) 
+    {
+      if (err) 
+      {
+        console.error('error inserting into donations:', err);
+        res.status(500).send('error inserting into donations');
+        return;
+      }
+      
+      //when you do an insert query, you can use insertId to get the id of the row that was inserted (since it is a primary key)
+      const donation_id = parseInt(result.insertId);
+
+      //get charity id using charity name
+      connection.query('SELECT charity_id FROM pat_2024.charities WHERE name = ?', [charityName], function(err, result) 
+      {
+        
+        if (err) 
+        {
+          console.log('Error getting charity id:', err);
+          console.error('Error getting charity id:', err);
+          res.status(500).send('error getting charity id');
+          return;
+        }
+
+        if (result.length === 0) {
+          res.status(404).send('Charity not found');
+          return;
+        }
+        console.log(result);
+        const charity_id = parseInt(result[0].charity_id);
+      
+        //insert into monetary_donations using donation id that we got and body elements
+        connection.query('INSERT INTO pat_2024.donations_monetary_entry (donation_id, charity_id, quantity) VALUES (?, ?, ?)', [donation_id, charity_id, quantity], function(err) 
+        {
+          if (err) 
+          {
+            console.error('Error inserting into monetary_donations :', err);
+            res.status(500).send('error inserting into monetary_donations');
+            return;
+          }
+          
+          console.log('true');
+          res.send('true');
+
+        });
+
+      });
+
+    });
+
+  });
+
+});
+
+//get the user's details and send to profile
+app.post("/api/getUserDetails", function (req, res) 
+{
+    const username = req.body.savedUsername;
+    console.log(username);
+
+    connection.query('SELECT * FROM pat_2024.donors WHERE username = ?', [username], function(err, result) 
+    {
+      if (err) 
+      {
+        console.error('Database query error:', err);
+        return res.status(500).json({ error: 'Internal server error', details: err.message });
+      }
+
+        console.log("Query result:", result);
+
+        if (result.length === 0) 
+        {
+          console.log("No user found for username:", username);
+          return res.status(404).json({ error: 'User not found' });
+        }
+
+        console.log("Sending user details:", result);
+        res.json(result);
+
+    });
+
+});
+
+app.post("/api/updateDetails", function (req, res) 
+{
+    const donor_id = req.body.donor_id;
+    const username = req.body.username;
+    const fname = req.body.first_name;
+    const lname = req.body.last_name;
+    const email = req.body.email;
+    const pnum = req.body.phone_number;
+
+    connection.query('UPDATE pat_2024.donors SET first_name = ?, last_name = ?, email = ?, phone_number = ?, username = ? WHERE donor_id = ?', [fname, lname, email, pnum, username, donor_id], function(err, result) 
+    {
+      if (err) 
+      {
+        console.error('Error executing query:', err);
+        res.status(500).send('Unsuccessful');
+        return;
+      }
+
+      console.log('true');
+      res.send('Successful');
+
+    });
+
+});

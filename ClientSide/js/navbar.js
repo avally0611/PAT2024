@@ -25,7 +25,7 @@ window.addEventListener('load', function(){
     }
     else{
         dropdown.textContent = 'Welcome Guest';
-        signinDropdown.textContent = 'Sign In';
+        signinDropdown.textContent = 'Sign In or Register';
         signinDropdown.href = 'login.html';
     }
 

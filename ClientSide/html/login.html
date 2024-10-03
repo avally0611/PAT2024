@@ -20,12 +20,18 @@
     
                 <div class="input-container">
                     <label for="username" class="inputlabels">username:</label><br>
-                    <input type="text" id="username" name="username" class="inputfields" placeholder="JohnDoe123"><br>
-                    <label for="pass" class="inputlabels">password:</label><br>
+                    <input type="text" id="username" name="username" class="inputfields" placeholder="JohnDoe123" required><br>
+                    <div class="invalid-feedback">
+                        Please enter your username before logging in
+                    </div>
+                    <label for="pass" class="inputlabels" data-toggle="tooltip" data-placement="top" title="For a strong password, ensure you use both capital and lowercase letters, special letters, numbers and your length must be longer than 8">password:</label><br>
                     <div class="password-container">
-                        <input type="password" id="pass" name="pass" class="inputfields" placeholder="****">
+                        <input type="password" id="pass" name="pass" class="inputfields" placeholder="****" required>
+                        <div class="invalid-feedback">
+                            Please enter your password before logging in
+                        </div>
                         <input type="checkbox" id="showPassword" class="showPassword">
-                        <label for="showPassword" class="checkboxLabel" for="showPassword">Show</label>
+                        <label for="showPassword" class="checkboxLabel">Show</label>
                     </div>
                     
 

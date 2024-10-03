@@ -13,12 +13,11 @@
     display: flex; 
     /* 90% of the viewport width */
     width: 90%; 
-    max-width: 1200px; 
     height: 95vh; 
     background-color: white; 
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
     overflow: hidden; 
+    padding-right: 0px;
 }
 
 .leftSide {
@@ -159,4 +158,9 @@
 
 .password-group .inputfields {
     height: 40px; 
+}
+
+.signupButton:disabled {
+    background-color: #342a33; /* Example style: change background color when disabled */
+    cursor: not-allowed; /* Example style: change cursor to not-allowed */
 }

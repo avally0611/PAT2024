@@ -20,10 +20,11 @@
 
           <!-- LOGO -->
           <a class="navbar-brand" href="#">DONORDIRECT</a>
-
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+          <button class="helpButton" id="helpButton" data-toggle="modal" data-target="#helpModal">
+            <img src="../images/lamp.png" alt="cart" style="width: 40px; height: 35px;">
           </button>
+
+      
           <div class="collapse navbar-collapse" id="navbarNav">
 
             <ul class="navbar-nav ml-auto">
@@ -48,7 +49,7 @@
                   <a id="signinDropdown" class="dropdown-item" href="login.html">Signin</a>
                 </div>
               </li>
-              <li class="nav-item"></li>
+              <li class="nav-item">
                 <a class="nav-link" href="cart.html">
 
                   <!-- add picture of cart -->
@@ -71,7 +72,7 @@
             <h1 class="card-heading">User Profile</h1>
             <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Profile Picture" class="rounded-circle mb-3" style="width: 150px; height: 150px;">
             <div class="card-details">
-              <form>
+              <form id="profileForm">
                 <div class="mb-3">
                   <label for="savedFirstname" class="form-label">First Name</label>
                   <input type="firstname" class="form-control" id="savedFirstname" aria-describedby="firstName">
@@ -91,10 +92,14 @@
 
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">Email address</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                  <input type="email" class="form-control" id="savedEmail" aria-describedby="emailHelp">
                 </div>
                 
-                <button type="submit" class="btn btn-primary">Update Details</button>
+                <div class="buttonContainer">
+                  <button type="submit" id="updateButton" class="btn btn-primary">Update Details</button>
+                  <button type="submit" id="confirmDetails" class="btn btn-primary">Confirm Details</button>
+                </div>
+
               </form>
   
                           
@@ -102,10 +107,31 @@
             </div>
           </div>
         </div>
+
+              
+        <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Profile Page Instructions</h1>
+                <button type="button" id="modalClose" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Close</button>
+              </div>
+              <div class="modal-body">
+                <p>Here are some tips on how to use the profile page:</p>
+                <ul>
+                  <li>Below, you will see your details saved.</li>
+                  <li>If you would like to change anything, press the update details button and enter your text in the given fields</li>
+                  <li>Once you are happy with your changes, click the button "confirm details" to confirm</li>
+                  <li>You can then refresh the screen to see the updates</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
         
     </div>
 
-    <script src="../js/index.js"></script>
+    <script src="../js/profile.js"></script>
     <script src="../js/navbar.js"></script>
 </body>
 

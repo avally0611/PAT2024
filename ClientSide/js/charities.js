@@ -37,7 +37,7 @@ function createCharityCards(charities){
         name.className = 'card-description';
 
         const npo = document.createElement('p');
-        npo.textContent = charity.npo_number;
+        npo.textContent = 'NPO: ' + charity.NPO;
         name.className = 'card-npo';
 
         card.appendChild(image);

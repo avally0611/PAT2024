@@ -63,7 +63,6 @@ body {
     background-image: url('../images/HeaderImage.png');
     background-attachment: fixed;
     background-size: cover;
-    
     background-position: center;
 }
 
@@ -74,13 +73,113 @@ body {
  left: 0;
  top: 0;
  background: #f4f4f4c9;
- z-index: 50;
+ z-index: 1;
 }
 
 .container-intro{
     color: #7f627b;
+    z-index: 2;
+    text-align: center;
 }
 
+.aboutSection{
+    padding: 60px 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #E1CDB5;
+
+}
+
+.aboutSection h1{
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    position: relative;
+    bottom:100px;
+    border: 2px solid #E1CDB5;
+    padding: 15px;
+    width: 90% ;
+    text-align: center;
+}
+
+.aboutSection p{
+    font-size: 25px;
+    margin-bottom: 40px;
+    width: 75%;
+    text-align: center;
+}
+
+.featuresSection{
+    padding: 60px 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #E1CDB5;
+    margin-bottom: 50px;
+
+}
+
+.featuresSection h1{
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    position: relative;
+    bottom:100px;
+    border: 2px solid #E1CDB5;
+    padding: 15px;
+    width: 90% ;
+    text-align: center;
+}
+
+.featuresSection h2{
+    font-size: 35px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    position: relative;
+    bottom:100px;
+    padding: 15px;
+    width: 100% ;
+    text-align: center;
+}
+
+.featuresSection p{
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    position: relative;
+    bottom:100px;
+    padding: 15px;
+    width: 100% ;
+    text-align: center;
+
+}
+
+.featuresSection .row{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.featuresSection .featureColumn{
+
+    box-shadow: 5px 5px 5px 5px #E1CDB5;
+    text-align: center;
+
+}
+
+.indexBody{
+    margin: 0;  
+    padding: 0; 
+    box-sizing: border-box;
+}
+
+
+/* CHARITIES.HTML STYLES */
 .btn{
     background-color: #7f627b;
     color: #E1CDB5;
@@ -91,7 +190,7 @@ body {
     border-radius: 5px;
 }
 
-/* CHARITIES.HTML STYLES */
+
 .cards-container{
     display: flex;
     flex-wrap: wrap;
@@ -157,6 +256,9 @@ body {
     width: 600px;
     margin: 0 auto;
     margin-top: 50px;
+    border-radius: 10px;
+    border: #463744 1px solid;
+    box-shadow: #463744 5px 5px 5px;
 
     
 }
@@ -175,13 +277,42 @@ body {
     max-width: max-content;
     border-radius: 5px;
     padding: 10px;
-    
 }
 
-.donationInput{
-    margin: 120px;
-    
+.dropdown-item:hover, .dropdown-item:focus {
+    background-color: #7f627b;
+    color: #fff;
 }
+
+.dropdown-item.active {
+    background-color: #7f627b;
+    color: #E1CDB5;
+}
+
+
+
+.donationInput {
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+.donationInput span {
+    background-color: #f0f2f5;
+    color: #333;
+    padding: 12px;
+    font-weight: bold;
+}
+.donationInput input {
+    flex-grow: 1;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    outline: none;
+}
+
 
 /* PAYMENT STYLES */
 .payment-container{
@@ -195,7 +326,7 @@ body {
 
 
 .payment-container .card{
-    height: 600px;
+    height: 700px;
     width: 800px;
     padding: 5px;
     margin-top: 50px;
@@ -216,9 +347,11 @@ body {
     padding: 20px;
     height: fit-content;
     width: 100%;
+    height: 100%;
     font-size: 25px;
-
 }
+
+
 
 .card-details button{
     width: 165px;
@@ -234,20 +367,21 @@ body {
 
 }
 
-#summaryCard{
-    height: 600px;
-    width: 300px;
-    margin-top: 50px;
+.cancelButt{
+    width: 165px;
+    margin-top: 30px;
+    background-color: #7f627b;
+    color: #E1CDB5;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    padding: 10px 40px;
     border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 20px;
-}
+    margin-right: 20px;
+    position: relative;
+    bottom: 50px;
 
-#summaryCard h1{
-    padding-bottom: 10px;
+
 }
 
 .card-details label, .card-details input{
@@ -401,6 +535,22 @@ body {
     height: fit-content;
     width: 100%;
     font-size: 25px;
+}
+
+.helpButton{
+    margin-right: 20px;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+}
+
+.profile-container input{
+    color: #7f627b;
+}
+
+.buttonContainer{
+    display: flex;
+    justify-content: space-evenly;
 }
 
 /* DONATE MONEY TABLE STYLES */

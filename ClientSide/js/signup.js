@@ -3,44 +3,71 @@ let errorMessage;
 
 window.addEventListener('load', function() {
 
-    signupButton = document.getElementById("signupButton");
+    signupForm = document.getElementById("signupBox");
+    signupButton = document.getElementById("signupButton"); // Initialize signupButton
 
-    signupButton.addEventListener('click', function(event) {
+    signupForm.addEventListener('submit', function(event) {
+        if (!signupForm.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        
         event.preventDefault();
         addUser();
     });
 
     const username = document.getElementById('username');
     const password = document.getElementById('pass');
+    const email = document.getElementById('email');
     errorMessage = document.getElementById("errorMessage");
 
-    pass.addEventListener('keyup', function() {
+
+    password.addEventListener('keyup', function() { // Corrected typo from pass to password
 
         checkPasswordStrength(password.value);
+
+    });
+
+    const checkbox = document.getElementById('showPassword');
+    checkbox.addEventListener('change', function() {
+
+        if (checkbox.checked) {
+            password.type = 'text';
+        } else {
+            password.type = 'password';
+        }
 
     });
 
 });
 
 function checkPasswordStrength(password) {
+    let messages = [];
 
-    const strength = {
-        1: 'Very Weak',
-        2: 'Weak',
-        3: 'Medium',
-        4: 'Strong',
-        5: 'Very Strong'
-    };
+    if (password.length < 8) {
+        messages.push("Password must be at least 8 characters long");
+    }
+    
+    if (!/[a-z]/.test(password) || !/[A-Z]/.test(password)) {
+        messages.push("Password must contain both lowercase and uppercase letters");
+    }
 
-    let strengthValue = 1;
+    if (!/[0-9]/.test(password)) {
+        messages.push("Password must contain at least one number");
+    }
 
-    if (password.length > 5) strengthValue++;
-    if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strengthValue++;
-    if (password.match(/[0-9]/)) strengthValue++;
-    if (password.match(/[$@#&!]/)) strengthValue++;
-    if (password.length > 12) strengthValue++;
+    if (!/[!@#$%^&*]/.test(password)) {
+        messages.push("Password must contain at least one special character");
+    }
 
-    document.getElementById("errorMessage").innerHTML = strength[strengthValue];
+    if (messages.length > 0) {
+        errorMessage.textContent = messages.join(". ");
+        errorMessage.style.display = "block";
+        signupButton.disabled = true;
+    } else {
+        errorMessage.style.display = "none";
+        signupButton.disabled = false;
+    }
 }
 
 function addUser(){
