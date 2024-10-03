@@ -79,7 +79,6 @@ function validateCardDetails(){
     {
         console.log("Card is expired");
         alert("Card is expired");
-        console.log(JSON.parse(sessionStorage.getItem('monetaryDonation')));
     }
     else
     {

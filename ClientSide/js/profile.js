@@ -72,7 +72,7 @@ function fetchProfileDetails()
     .then(data => {
 
         console.log('Success:', data);
-        updateDetails(data);
+        populateInputFields(data);
         donor_id = data[0].donor_id;
     })
     .catch((error) => {
@@ -83,7 +83,8 @@ function fetchProfileDetails()
     
 }
 
-function updateDetails(data)
+//this method populates the input fields with the data fetched from the database when page loads
+function populateInputFields(data)
 {
     const fname = document.getElementById('savedFirstname');
     const lname = document.getElementById('savedLastname');
@@ -98,6 +99,7 @@ function updateDetails(data)
     username.value = data[0].username;
 }
 
+//this method updates the details in the database
 function updateDetailsInTable()
 {
     const fname = document.getElementById('savedFirstname');
