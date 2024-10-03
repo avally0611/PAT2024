@@ -79,6 +79,7 @@ function validateCardDetails(){
     {
         console.log("Card is expired");
         alert("Card is expired");
+        console.log(JSON.parse(sessionStorage.getItem('monetaryDonation')));
     }
     else
     {
@@ -95,6 +96,7 @@ function addDonation()
 {
     const username = sessionStorage.getItem('username');
     const monetaryDonation = JSON.parse(sessionStorage.getItem('monetaryDonation'));
+    console.log(monetaryDonation);
     
     const charity = monetaryDonation.charity;
     const amount = monetaryDonation.amount;

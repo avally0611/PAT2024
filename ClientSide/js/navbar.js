@@ -17,6 +17,7 @@ window.addEventListener('load', function(){
     const dropdown = document.getElementById('navbarDropdown');
     const username = sessionStorage.getItem('username');
     const signinDropdown = document.getElementById('signinDropdown');
+    const profileDropdown = document.getElementById('profileDropdown');
 
     if(username != null){
         dropdown.textContent = 'Welcome ' + username;
@@ -25,6 +26,7 @@ window.addEventListener('load', function(){
     }
     else{
         dropdown.textContent = 'Welcome Guest';
+        profileDropdown.style.display = 'none';
         signinDropdown.textContent = 'Sign In or Register';
         signinDropdown.href = 'login.html';
     }

@@ -110,7 +110,7 @@ function donateButtonClicked()
         amount: parseInt(amount.value)
     };
 
-    sessionStorage.setItem('monetaryDonation', monetaryDonation);
+    sessionStorage.setItem('monetaryDonation', JSON.stringify(monetaryDonation));
     
     window.location.href = "payment.html";
 }

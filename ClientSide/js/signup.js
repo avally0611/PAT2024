@@ -16,9 +16,7 @@ window.addEventListener('load', function() {
         addUser();
     });
 
-    const username = document.getElementById('username');
     const password = document.getElementById('pass');
-    const email = document.getElementById('email');
     errorMessage = document.getElementById("errorMessage");
 
 
@@ -113,6 +111,7 @@ function addUser(){
         else
         {
             console.log('Signup failed');
+            alert("Signup failed");
         }
 
   

@@ -8,7 +8,9 @@ window.addEventListener('DOMContentLoaded', function()
     const updateButton = document.getElementById('updateButton');
     const confirmButton = document.getElementById('confirmDetails');
     confirmButton.style.display = 'none';
-
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+    });
     updateButton.addEventListener('click', function()
     {
         inputs.forEach(input => input.readOnly = false);
