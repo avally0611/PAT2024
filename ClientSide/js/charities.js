@@ -7,7 +7,9 @@ function fetchCharities() {
     fetch('http://localhost:8383/api/charities')
         .then(response => response.json())
         .then(data => {
+            console.log('Success:', data);
             createCharityCards(data);
+            
             
         })
         .catch(error => {

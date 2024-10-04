@@ -18,6 +18,7 @@ function fetchRequests() {
 
 }
 
+//this function creates the tables for each charity and their requests
 function createRequestTables(donations_needed){
 
     const container = document.getElementById('requests-container');

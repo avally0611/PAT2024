@@ -6,16 +6,22 @@ const amount = document.getElementById('donationAmount');
 
 const dropdown = document.getElementById('dropdown-menu');
 
-dropdown.addEventListener('click', function(event){
-    selectedText = event.target.innerText;
-    console.log(selectedText);
-    selectedCharity = selectedText;
-});
+//this function will set the selected charity to the one that is clicked
+function setupDropdownClickListener() {
+    dropdown.addEventListener('click', function(event){
+        selectedText = event.target.innerText;
+        console.log(selectedText);
+        selectedCharity = selectedText;
+    });
+}
+
+
 
 
 window.addEventListener('load', function () {
     console.log('All assets are loaded');
     fetchCharitiesforDropdown();
+    setupDropdownClickListener();
 
     
 });

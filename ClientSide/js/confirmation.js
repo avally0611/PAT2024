@@ -2,6 +2,12 @@
 window.addEventListener('DOMContentLoaded', function(){
     const returnButton = document.getElementById('returnButton');
     returnButton.addEventListener('click', function() {
-        window.location.href = 'index.html';
+        returnToIndex();
     });
 });
+
+//this function will handle the return button
+function returnToIndex()
+{
+    window.location.href = 'index.html';
+}

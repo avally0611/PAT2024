@@ -35,6 +35,7 @@ function validateCardNumber(e){
 
 cardExpiry.addEventListener('keypress', validateCardExpiry);
 
+//format expiry date as user types
 function validateCardExpiry(e)
 {
     const cardExpiryValue = cardExpiry.value;
@@ -54,6 +55,7 @@ function validateCardExpiry(e)
 
 cvv.addEventListener('keypress', validateCVV);
 
+//limit cvv to 4 characters
 function validateCVV(e){
 
     const cvvValue = cvv.value;
@@ -63,6 +65,7 @@ function validateCVV(e){
     }
 }
 
+//validate card details and send to server
 function validateCardDetails(){
 
     //get date from expiry date and confirm it after today date (not expired) - then direct to confirmation page
@@ -91,6 +94,7 @@ function validateCardDetails(){
     
 }
 
+//send donation to server
 function addDonation()
 {
     const username = sessionStorage.getItem('username');

@@ -1,44 +1,57 @@
+let signupForm;
 let signupButton;
 let errorMessage;
 
 window.addEventListener('load', function() {
-
-    signupForm = document.getElementById("signupBox");
-    signupButton = document.getElementById("signupButton"); // Initialize signupButton
-
-    signupForm.addEventListener('submit', function(event) {
-        if (!signupForm.checkValidity()) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-        
-        event.preventDefault();
-        addUser();
-    });
-
-    const password = document.getElementById('pass');
-    errorMessage = document.getElementById("errorMessage");
-
-
-    password.addEventListener('keyup', function() { // Corrected typo from pass to password
-
-        checkPasswordStrength(password.value);
-
-    });
-
-    const checkbox = document.getElementById('showPassword');
-    checkbox.addEventListener('change', function() {
-
-        if (checkbox.checked) {
-            password.type = 'text';
-        } else {
-            password.type = 'password';
-        }
-
-    });
-
+    initializeElements();
+    setupEventListeners();
 });
 
+//this function will initialize the elements
+function initializeElements() {
+    signupForm = document.getElementById("signupBox");
+    signupButton = document.getElementById("signupButton"); // Initialize signupButton
+    errorMessage = document.getElementById("errorMessage");
+}
+
+//this function will setup the event listeners
+function setupEventListeners() {
+    signupForm.addEventListener('submit', handleFormSubmit);
+    const password = document.getElementById('pass');
+    password.addEventListener('keyup', handlePasswordKeyup);
+    const checkbox = document.getElementById('showPassword');
+    checkbox.addEventListener('change', handleCheckboxChange);
+}
+
+//this function will handle the form submit event
+function handleFormSubmit(event) {
+    if (!signupForm.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+    
+    event.preventDefault();
+    addUser();
+}
+
+//this function will handle the keyup event for the password field
+function handlePasswordKeyup() {
+    const password = document.getElementById('pass');
+    checkPasswordStrength(password.value);
+}
+
+//this function will handle the change event for the checkbox
+function handleCheckboxChange() {
+    const password = document.getElementById('pass');
+    const checkbox = document.getElementById('showPassword');
+    if (checkbox.checked) {
+        password.type = 'text';
+    } else {
+        password.type = 'password';
+    }
+}
+
+//this function will check the password strength
 function checkPasswordStrength(password) {
     let messages = [];
 
@@ -68,6 +81,7 @@ function checkPasswordStrength(password) {
     }
 }
 
+//this function will add a user to database
 function addUser(){
     console.log('Button clicked');
     var username = document.getElementById('username').value;
