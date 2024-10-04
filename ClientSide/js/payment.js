@@ -1,83 +1,93 @@
-//get pay button to lead to confirmation page
+// Get pay button to lead to confirmation page
 const payButton = document.getElementById("pay-button");
 payButton.addEventListener("click", function(event){
-    event.preventDefault();
-    validateCardDetails();
+    event.preventDefault(); // Prevent default form submission
+    validateCardDetails(); // Validate card details
 });
 
 const cancelButton = document.getElementById("cancelButt");
 cancelButton.addEventListener("click", function(event){
-    event.preventDefault();
-    window.location.href = "donateMoney.html";
+    event.preventDefault(); // Prevent default action
+    window.location.href = "donateMoney.html"; // Redirect to donate money page
 });
-//i will make method for number and expiry to limit bad input
+
+// Get card number, expiry date, and CVV elements
 const cardNumber = document.getElementById("cardNumber");
 const cardExpiry = document.getElementById("expiryDate");
 const cvv = document.getElementById("cvv");
 
+// Add event listener to card number input
 cardNumber.addEventListener('keypress', validateCardNumber);
 
-//format card number as user types
+// Format card number as user types
+// @param {Event} e - The event object
 function validateCardNumber(e){
-    const cardNumberValue = cardNumber.value;
+    const cardNumberValue = cardNumber.value; // Get current card number value
     if(cardNumberValue.length < 19){
+        // Add hyphen after every 4th character
         if (cardNumberValue.length == 4 || cardNumberValue.length == 9 || cardNumberValue.length == 14){
             cardNumber.value += "-";
         }
     }
     else
     {
-        //prevent user from typing more than 19 characters
-        //e represents event and and prevents event's default action
+        // Prevent user from typing more than 19 characters
         e.preventDefault();
     }
 }
 
+// Add event listener to card expiry input
 cardExpiry.addEventListener('keypress', validateCardExpiry);
 
-//format expiry date as user types
+// Format expiry date as user types
+// @param {Event} e - The event object
 function validateCardExpiry(e)
 {
-    const cardExpiryValue = cardExpiry.value;
+    const cardExpiryValue = cardExpiry.value; // Get current expiry date value
 
     if(cardExpiryValue.length < 5){
+        // Add slash after 2 characters
         if (cardExpiryValue.length == 2){
             cardExpiry.value += "/";
         }
     }
     else
     {
+        // Prevent user from typing more than 5 characters
         e.preventDefault();
     }
-
-
 }
 
+// Add event listener to CVV input
 cvv.addEventListener('keypress', validateCVV);
 
-//limit cvv to 4 characters
+// Limit CVV to 4 characters
+// @param {Event} e - The event object
 function validateCVV(e){
 
-    const cvvValue = cvv.value;
+    const cvvValue = cvv.value; // Get current CVV value
 
     if(cvvValue.length == 4){
+        // Prevent user from typing more than 4 characters
         e.preventDefault();
     }
 }
 
-//validate card details and send to server
+// Validate card details and send to server
 function validateCardDetails(){
 
-    //get date from expiry date and confirm it after today date (not expired) - then direct to confirmation page
+    // Get today's date
     const today = new Date();
 
+    // Split expiry date into month and year
     const expiryDateArray = cardExpiry.value.split("/");
     const expiryMonth = expiryDateArray[0];
     const expiryYear = expiryDateArray[1];
 
-    //create a new date object with the expiry date (ALSO -1 because months IN JS are 0 indexed)
+    // Create a new date object with the expiry date (months are 0 indexed in JS)
     const expiryDate = new Date('20' + expiryYear, expiryMonth - 1);
 
+    // Check if the card is expired
     if (expiryDate < today)
     {
         console.log("Card is expired");
@@ -87,28 +97,28 @@ function validateCardDetails(){
     {
         console.log("Card is not expired");
 
-        addDonation();
+        addDonation(); // Add donation
 
-        //we also have to send information about donation to table (monetary donation)
+        // We also have to send information about donation to table (monetary donation)
     }
     
 }
 
-//send donation to server
+// Send donation to server
 function addDonation()
 {
-    const username = sessionStorage.getItem('username');
-    const monetaryDonation = JSON.parse(sessionStorage.getItem('monetaryDonation'));
+    const username = sessionStorage.getItem('username'); // Get username from session storage
+    const monetaryDonation = JSON.parse(sessionStorage.getItem('monetaryDonation')); // Get monetary donation details from session storage
     console.log(monetaryDonation);
     
-    const charity = monetaryDonation.charity;
-    const amount = monetaryDonation.amount;
+    const charity = monetaryDonation.charity; // Get charity name
+    const amount = monetaryDonation.amount; // Get donation amount
     fetch('http://localhost:8383/api/addMonetaryDonation', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({username, charity, amount}),
+        body: JSON.stringify({username, charity, amount}), // Send username, charity, and amount as JSON
     })
     .then(response => response.text())
     .then(data => {
@@ -117,7 +127,7 @@ function addDonation()
         {
             console.log('Donation successful');
             alert("Donation successful");
-            window.location.href = "confirmation.html";
+            window.location.href = "confirmation.html"; // Redirect to confirmation page
         }
     })
     .catch((error) => {
@@ -126,7 +136,3 @@ function addDonation()
     });
 
 }
-
-
-
-
