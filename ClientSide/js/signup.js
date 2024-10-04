@@ -111,6 +111,7 @@ function addUser(){
     {
         if (data === 'Successful')
         {
+            errorMessage.textContent = "Unique username";
             console.log('Signup successful');
             alert("Signup successful");
             window.location.href = "login.html";

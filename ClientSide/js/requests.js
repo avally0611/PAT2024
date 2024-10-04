@@ -2,8 +2,34 @@ const donationItemsArr = [];
 
 window.addEventListener('load', function () {
     console.log('All assets are loaded');
+
+    initializeButtons();
+    
+
     fetchRequests();
 });
+
+function initializeButtons()
+{
+    const helpModal = document.getElementById('helpModal');
+    const closeModal = document.getElementById('closeModal');
+    const helpButton = document.getElementById('helpButton');
+
+
+    helpModal.setAttribute('inert', '');
+    helpButton.addEventListener('click', () => showHelpModal(helpModal, closeModal));
+    
+}
+
+function showHelpModal(helpModal, closeModal) {
+    helpModal.style.display = 'block';
+    helpModal.removeAttribute('inert');
+
+    closeModal.addEventListener('click', function() {
+        helpModal.setAttribute('inert', '');
+        helpModal.style.display = 'none';
+    });
+}
 
 function fetchRequests() {
     fetch('http://localhost:8383/api/requests')
